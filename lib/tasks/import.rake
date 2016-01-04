@@ -5,10 +5,10 @@ namespace :db do
   desc "Import Customers from CSV"
   task import: :environment do
     customers
-    invoice_items
-    invoices
-    items
     merchants
+    items
+    invoices
+    invoice_items
     transactions
   end
 
@@ -35,10 +35,10 @@ namespace :db do
       counter = 0
 
       CSV.foreach(filename, headers: true) do |row|
-        invoice_item = InvoiceItem.create(item_id: row["item_id"],
-                                          invoice_id:  row["invoice_id"],
-                                          quantity: row["quantity"],
-                                          unit_price: row["unit_price"],
+        invoice_item = InvoiceItem.create!(item_id: row["item_id"].to_i,
+                                          invoice_id:  row["invoice_id"].to_i,
+                                          quantity: row["quantity"].to_i,
+                                          unit_price: row["unit_price"].to_i,
                                           created_at: row["created_at"],
                                           updated_at: row["updated_at"])
         puts "#{item_id invoice_id} - #{invoice_item.errors.full_messages.join(', ')}" if invoice_item.errors.any?
@@ -53,8 +53,8 @@ namespace :db do
       counter = 0
 
       CSV.foreach(filename, headers: true) do |row|
-        invoice = Invoice.create( customer_id: row["customer_id"],
-                                  merchant_id:  row["merchant_id"],
+        invoice = Invoice.create( customer_id: row["customer_id"].to_i,
+                                  merchant_id:  row["merchant_id"].to_i,
                                   status: row["status"],
                                   created_at: row["created_at"],
                                   updated_at: row["updated_at"])
@@ -72,8 +72,8 @@ namespace :db do
       CSV.foreach(filename, headers: true) do |row|
         item = Item.create( name: row["name"],
                             description:  row["description"],
-                            unit_price:  row["unit_price"],
-                            merchant_id:  row["merchant_id"],
+                            unit_price:  row["unit_price"].to_i,
+                            merchant_id:  row["merchant_id"].to_i,
                             created_at: row["created_at"],
                             updated_at: row["updated_at"])
         puts "#{name} - #{item.errors.full_messages.join(', ')}" if item.errors.any?
@@ -103,8 +103,8 @@ namespace :db do
       counter = 0
 
       CSV.foreach(filename, headers: true) do |row|
-        transaction = Transaction.create( invoice_id: row["invoice_id"],
-                                          credit_card_number:  row["credit_card_number"],
+        transaction = Transaction.create( invoice_id: row["invoice_id"].to_i,
+                                          credit_card_number:  row["credit_card_number"].to_i,
                                           credit_card_expiration_date:  row["credit_card_expiration_date"],
                                           result:  row["result"],
                                           created_at: row["created_at"],
