@@ -2,19 +2,15 @@ class Api::V1::MerchantsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Merchant.all
+    respond_with Merchant.where(merchant_params)
   end
 
   def show
     respond_with Merchant.find_by(merchant_params)
   end
 
-  def find_all
-    respond_with Merchant.where(merchant_params)
-  end
-
   def random
-    Merchant.limit(1).order("RANDOM()")
+    respond_with Merchant.limit(1).order("RANDOM()")
   end
 
   private

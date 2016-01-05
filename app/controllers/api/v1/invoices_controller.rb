@@ -2,19 +2,19 @@ class Api::V1::InvoicesController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Invoice.all
+    respond_with Invoice.where(invoice_params)
   end
 
   def show
     respond_with Invoice.find_by(invoice_params)
   end
 
-  def find_all
-    respond_with Invoice.where(invoice_params)
+  def random
+    Invoice.limit(1).order("RANDOM()")
   end
 
   def random
-    Invoice.limit(1).order("RANDOM()")
+    respond_with Invoice.limit(1).order("RANDOM()")
   end
 
   private

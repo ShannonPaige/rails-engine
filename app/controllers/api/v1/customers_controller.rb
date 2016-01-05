@@ -2,19 +2,15 @@ class Api::V1::CustomersController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Customer.all
+    respond_with Customer.where(customer_params)
   end
 
   def show
     respond_with Customer.find_by(customer_params)
   end
 
-  def find_all
-    respond_with Customer.where(customer_params)
-  end
-
   def random
-    Customer.limit(1).order("RANDOM()")
+    respond_with Customer.limit(1).order("RANDOM()")
   end
 
   private
