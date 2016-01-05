@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.references :merchant, index: true, foreign_key: true
-      t.integer :unit_price
+      t.decimal :unit_price
 
       t.datetime  :created_at
       t.datetime  :updated_at

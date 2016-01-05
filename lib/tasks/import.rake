@@ -38,7 +38,7 @@ namespace :db do
         invoice_item = InvoiceItem.create!(item_id: row["item_id"].to_i,
                                           invoice_id:  row["invoice_id"].to_i,
                                           quantity: row["quantity"].to_i,
-                                          unit_price: row["unit_price"].to_i,
+                                          unit_price: row["unit_price"].to_i/100.0,
                                           created_at: row["created_at"],
                                           updated_at: row["updated_at"])
         puts "#{item_id invoice_id} - #{invoice_item.errors.full_messages.join(', ')}" if invoice_item.errors.any?
@@ -72,7 +72,7 @@ namespace :db do
       CSV.foreach(filename, headers: true) do |row|
         item = Item.create( name: row["name"],
                             description:  row["description"],
-                            unit_price:  row["unit_price"].to_i,
+                            unit_price:  row["unit_price"].to_i/100.0,
                             merchant_id:  row["merchant_id"].to_i,
                             created_at: row["created_at"],
                             updated_at: row["updated_at"])
@@ -88,7 +88,7 @@ namespace :db do
       counter = 0
 
       CSV.foreach(filename, headers: true) do |row|
-        merchant = Merchant.create( name: row["first_name"],
+        merchant = Merchant.create( name: row["name"],
                                     created_at: row["created_at"],
                                     updated_at: row["updated_at"])
         puts "#{name} - #{merchant.errors.full_messages.join(', ')}" if merchant.errors.any?
@@ -104,8 +104,7 @@ namespace :db do
 
       CSV.foreach(filename, headers: true) do |row|
         transaction = Transaction.create( invoice_id: row["invoice_id"].to_i,
-                                          credit_card_number:  row["credit_card_number"].to_i,
-                                          credit_card_expiration_date:  row["credit_card_expiration_date"],
+                                          credit_card_number:  row["credit_card_number"],
                                           result:  row["result"],
                                           created_at: row["created_at"],
                                           updated_at: row["updated_at"])

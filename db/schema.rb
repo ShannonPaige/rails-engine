@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20160104223647) do
     t.integer  "item_id"
     t.integer  "invoice_id"
     t.integer  "quantity"
-    t.integer  "unit_price"
+    t.decimal  "unit_price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160104223647) do
     t.string   "name"
     t.string   "description"
     t.integer  "merchant_id"
-    t.integer  "unit_price"
+    t.decimal  "unit_price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,8 +65,7 @@ ActiveRecord::Schema.define(version: 20160104223647) do
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "invoice_id"
-    t.integer  "credit_card_number",          limit: 8
-    t.date     "credit_card_expiration_date"
+    t.string   "credit_card_number"
     t.string   "result"
     t.datetime "created_at"
     t.datetime "updated_at"

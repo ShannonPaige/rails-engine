@@ -2,8 +2,7 @@ class CreateTransactions < ActiveRecord::Migration
   def change
     create_table :transactions do |t|
       t.references :invoice, index: true, foreign_key: true
-      t.bigint :credit_card_number
-      t.date :credit_card_expiration_date
+      t.string :credit_card_number
       t.string :result
 
       t.datetime  :created_at
