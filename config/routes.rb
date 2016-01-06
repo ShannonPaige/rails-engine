@@ -2,34 +2,79 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :customers,                 only: [:index, :show], defaults: {format: :json} do
+      resources :customers, only: [:index, :show], defaults: {format: :json} do
         collection do
           get '/find',      to: 'customers#show'
           get '/find_all',  to: 'customers#index'
           get 'random'
         end
+        member do
+          get '/invoices',      to: 'customers/invoices#index'
+          get '/transactions',  to: 'customers/transactions#index'
+        end
       end
 
+      resources :invoice_items, only: [:index, :show], defaults: {format: :json} do
+        collection do
+          get '/find',      to: 'invoice_items#show'
+          get '/find_all',  to: 'invoice_items#index'
+          get 'random'
+        end
+        member do
+          get '/invoice',      to: 'invoice_items/invoices#show'
+          get '/item',         to: 'invoice_items/items#show'
+        end
+      end
 
-      get '/invoice_items/find',            to: 'invoice_items#show'
-      get '/invoice_items/find_all',        to: 'invoice_items#index'
-      resources :invoice_items,             only: [:index, :show]
+      resources :invoices, only: [:index, :show], defaults: {format: :json} do
+        collection do
+          get '/find',      to: 'invoices#show'
+          get '/find_all',  to: 'invoices#index'
+          get 'random'
+        end
+        member do
+          get '/transactions',  to: 'invoices/transactions#index'
+          get '/invoice_items', to: 'invoices/invoice_items#index'
+          get '/items',         to: 'invoices/items#index'
+          get '/customer',      to: 'invoices/customers#show'
+          get '/merchant',     to: 'invoices/merchants#index'
+        end
+      end
 
-      get '/invoices/find',                 to: 'invoices#show'
-      get '/invoices/find_all',             to: 'invoices#index'
-      resources :invoices,                  only: [:index, :show]
+      resources :items, only: [:index, :show], defaults: {format: :json} do
+        collection do
+          get '/find',      to: 'items#show'
+          get '/find_all',  to: 'items#index'
+          get 'random'
+        end
+        member do
+          get '/invoice_items', to: 'items/invoice_items#index'
+          get '/merchant',     to: 'items/merchants#show'
+        end
+      end
 
-      get '/items/find',                    to: 'items#show'
-      get '/items/find_all',                to: 'items#index'
-      resources :items,                     only: [:index, :show]
+      resources :merchants, only: [:index, :show], defaults: {format: :json} do
+        collection do
+          get '/find',      to: 'merchants#show'
+          get '/find_all',  to: 'merchants#index'
+          get 'random'
+        end
+        member do
+          get '/items',     to: 'merchants/items#index'
+          get '/invoices',  to: 'merchants/invoices#index'
+        end
+      end
 
-      get '/merchants/find',                to: 'merchants#show'
-      get '/merchants/find_all',            to: 'merchants#index'
-      resources :merchants,                 only: [:index, :show]
-
-      get '/transactions/find',             to: 'transactions#show'
-      get '/transactions/find_all',         to: 'transactions#index'
-      resources :transactions,              only: [:index, :show]
+      resources :transactions, only: [:index, :show], defaults: {format: :json} do
+        collection do
+          get '/find',      to: 'transactions#show'
+          get '/find_all',  to: 'transactions#index'
+          get 'random'
+        end
+        member do
+          get '/invoice',  to: 'transactions/invoices#show'
+        end
+      end
     end
   end
 end
