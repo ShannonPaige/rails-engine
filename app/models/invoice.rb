@@ -6,4 +6,12 @@ class Invoice < ActiveRecord::Base
   has_many    :items, through: :invoice_items
 
   default_scope -> { order('id DESC') }
+
+  def self.successful
+    joins(:transactions).where(transactions: {result: "success"})
+  end
+
+  def self.pending
+    joins(:transactions).where(transactions: {result: "failed"})
+  end
 end

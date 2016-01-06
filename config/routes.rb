@@ -9,8 +9,9 @@ Rails.application.routes.draw do
           get 'random'
         end
         member do
-          get '/invoices',      to: 'customers/invoices#index'
-          get '/transactions',  to: 'customers/transactions#index'
+          get '/invoices',          to: 'customers/invoices#index'
+          get '/transactions',      to: 'customers/transactions#index'
+          get '/favorite_merchant', to: 'customers/favorite_merchants#show'
         end
       end
 
@@ -58,10 +59,13 @@ Rails.application.routes.draw do
           get '/find',      to: 'merchants#show'
           get '/find_all',  to: 'merchants#index'
           get 'random'
+          get '/revenue',   to: 'merchants/total_revenue#show'
         end
         member do
-          get '/items',     to: 'merchants/items#index'
-          get '/invoices',  to: 'merchants/invoices#index'
+          get '/items',                             to: 'merchants/items#index'
+          get '/invoices',                          to: 'merchants/invoices#index'
+          get '/revenue',                           to: 'merchants/revenues#show'
+          get '/customers_with_pending_invoices',   to: 'merchants/pending_customers#index'
         end
       end
 
