@@ -37,4 +37,6 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'minitest'
+  gem 'simplecov'
+  gem 'database_cleaner'
 end
