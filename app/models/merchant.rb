@@ -18,10 +18,10 @@ class Merchant < ActiveRecord::Base
     {"total_revenue" => Invoice.belongs_to_merchant.successful.joins(:invoice_items).where(created_at: date).sum("quantity * unit_price")}
   end
 
-  # def favorite_customer
-  #   self.invoices.successful.joins(:customers).group()
-  #
-  # end
+  def favorite_customer
+    Customer.find(self.invoices.successful.unscope(:order).group(:customer_id).count.to_h
+    .max_by { |customer, quantity| quantity }.first)
+  end
 
   def pending_customers
     need_to_pay = []

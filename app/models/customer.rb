@@ -6,11 +6,8 @@ class Customer < ActiveRecord::Base
   default_scope -> { order('id DESC') }
 
   def favorite_merchant
-    merchant_purchases = {}
-    self.invoices do |invoice|
-
-    end
-
+    Merchant.find(self.invoices.successful.unscope(:order).group(:merchant_id).count.to_h
+    .max_by { |merchant, quantity| quantity }.first)
   end
 
 end
