@@ -14,4 +14,8 @@ class Invoice < ActiveRecord::Base
   def self.pending
     joins(:transactions).where(transactions: {result: "failed"})
   end
+
+  def self.belongs_to_merchant
+    where.not(merchant_id: nil)
+  end
 end

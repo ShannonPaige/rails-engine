@@ -50,16 +50,18 @@ Rails.application.routes.draw do
         end
         member do
           get '/invoice_items', to: 'items/invoice_items#index'
-          get '/merchant',     to: 'items/merchants#show'
+          get '/merchant',      to: 'items/merchants#show'
+          get 'best_day',       to: 'items/best_day#show'
         end
       end
 
       resources :merchants, only: [:index, :show], defaults: {format: :json} do
         collection do
-          get '/find',      to: 'merchants#show'
-          get '/find_all',  to: 'merchants#index'
+          get '/find',          to: 'merchants#show'
+          get '/find_all',      to: 'merchants#index'
           get 'random'
-          get '/revenue',   to: 'merchants/total_revenue#show'
+          get '/revenue',       to: 'merchants/total_revenue#show'
+          get '/most_revenue',  to: 'merchants/most_revenue#show'
         end
         member do
           get '/items',                             to: 'merchants/items#index'

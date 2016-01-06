@@ -15,7 +15,7 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.total_revenue(date)
-    {"total_revenue" => Invoice.successful.joins(:invoice_items).where(created_at: date).sum("quantity * unit_price")}
+    {"total_revenue" => Invoice.belongs_to_merchant.successful.joins(:invoice_items).where(created_at: date).sum("quantity * unit_price")}
   end
 
   # def favorite_customer
