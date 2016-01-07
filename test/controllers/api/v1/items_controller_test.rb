@@ -17,11 +17,15 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
   end
 
   test "#index returns the correct number of items" do
+    item = create(:item)
+    item2 = create(:item)
     get :index, format: :json
     assert_equal Item.count, json_response.count
   end
 
   test "#index contains items that have the correct properties" do
+    item = create(:item)
+    item2 = create(:item)
     get :index, format: :json
     json_response.each do |item|
       assert item["name"]
@@ -31,16 +35,22 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
   end
 
   test "#show returns to json" do
+    item = create(:item)
+    item2 = create(:item)
     get :show, id: Item.first.id, format: :json
     assert_response :success
   end
 
   test "#show returns one record" do
+    item = create(:item)
+    item2 = create(:item)
     get :show, format: :json, id: Item.first.id
     assert_kind_of Hash, json_response
   end
 
   test "#show returns the correct item" do
+    item = create(:item)
+    item2 = create(:item)
     get :show, format: :json, id: Item.first.id
     assert_equal Item.first.id, json_response["id"]
   end

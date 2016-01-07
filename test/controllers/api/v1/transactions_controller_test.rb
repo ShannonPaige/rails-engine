@@ -17,11 +17,15 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
   end
 
   test "#index returns the correct number of items" do
+    transaction = create(:transaction)
+    transaction2 = create(:transaction)
     get :index, format: :json
     assert_equal Transaction.count, json_response.count
   end
 
   test "#index contains items that have the correct properties" do
+    transaction = create(:transaction)
+    transaction2 = create(:transaction)
     get :index, format: :json
     json_response.each do |item|
       assert item["credit_card_number"]
@@ -30,16 +34,22 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
   end
 
   test "#show returns to json" do
+    transaction = create(:transaction)
+    transaction2 = create(:transaction)
     get :show, id: Transaction.first.id, format: :json
     assert_response :success
   end
 
   test "#show returns one record" do
+    transaction = create(:transaction)
+    transaction2 = create(:transaction)
     get :show, format: :json, id: Transaction.first.id
     assert_kind_of Hash, json_response
   end
 
   test "#show returns the correct item" do
+    transaction = create(:transaction)
+    transaction2 = create(:transaction)
     get :show, format: :json, id: Transaction.first.id
     assert_equal Transaction.first.id, json_response["id"]
   end

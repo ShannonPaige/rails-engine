@@ -17,11 +17,15 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   end
 
   test "#index returns the correct number of items" do
+    merchant = create(:merchant)
+    merchant2 = create(:merchant)
     get :index, format: :json
     assert_equal Merchant.count, json_response.count
   end
 
   test "#index contains items that have the correct properties" do
+    merchant = create(:merchant)
+    merchant2 = create(:merchant)
     get :index, format: :json
     json_response.each do |item|
       assert item["name"]
@@ -29,16 +33,22 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   end
 
   test "#show returns to json" do
+    merchant = create(:merchant)
+    merchant2 = create(:merchant)
     get :show, id: Merchant.first.id, format: :json
     assert_response :success
   end
 
   test "#show returns one record" do
+    merchant = create(:merchant)
+    merchant2 = create(:merchant)
     get :show, format: :json, id: Merchant.first.id
     assert_kind_of Hash, json_response
   end
 
   test "#show returns the correct item" do
+    merchant = create(:merchant)
+    merchant2 = create(:merchant)
     get :show, format: :json, id: Merchant.first.id
     assert_equal Merchant.first.id, json_response["id"]
   end

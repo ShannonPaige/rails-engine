@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::V1::Items::BestDayControllerTest < ActionController::TestCase
+class Api::V1::Items::MerchantsControllerTest < ActionController::TestCase
 
   test "#show returns to json" do
     item = create(:item)
