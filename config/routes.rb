@@ -66,7 +66,7 @@ Rails.application.routes.draw do
         member do
           get '/items',                             to: 'merchants/items#index'
           get '/invoices',                          to: 'merchants/invoices#index'
-          get '/revenue',                           to: 'merchants/revenues#show'
+          get '/revenue',                           to: 'merchants/revenue#show'
           get '/customers_with_pending_invoices',   to: 'merchants/pending_customers#index'
           get '/favorite_customer',                 to: 'merchants/favorite_customers#index'
         end
