@@ -41,4 +41,6 @@ group :development, :test do
   gem 'minitest'
   gem 'simplecov'
   gem 'database_cleaner'
+  gem 'shoulda'
+  gem 'factory_girl_rails'
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::V1::Merchants::PendingCustomersControllerTest < ActionController::TestCase
+class Api::V1::Merchants::InvoicesControllerTest < ActionController::TestCase
   def set_up
     json_response = JSON.parse(response.body)
   end
