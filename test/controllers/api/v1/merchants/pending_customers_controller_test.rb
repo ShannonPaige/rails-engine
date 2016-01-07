@@ -7,4 +7,5 @@ class Api::V1::Merchants::PendingCustomersControllerTest < ActionController::Tes
     get :index, id: merchant.id, format: :json
     assert_response :success
   end
+
 end

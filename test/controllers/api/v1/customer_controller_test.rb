@@ -41,11 +41,9 @@ class Api::V1::CustomersControllerTest < ActionController::TestCase
   end
 
   test "#show returns the correct item" do
-        customer = create(:customer)
-        customer2 = create(:customer)
+    customer = create(:customer)
+    customer2 = create(:customer)
     get :show, format: :json, id: Customer.first.id
     assert_equal Customer.first.id, json_response["id"]
   end
-
-
 end
