@@ -9,9 +9,9 @@ class Api::V1::InvoiceItemsController < ApplicationController
     respond_with InvoiceItem.find_by(invoice_items_params)
   end
 
-  def random
-    InvoiceItem.limit(1).order("RANDOM()")
-  end
+  # def random
+  #   InvoiceItem.limit(1).order("RANDOM()")
+  # end
 
   def random
     respond_with InvoiceItem.limit(1).order("RANDOM()")
