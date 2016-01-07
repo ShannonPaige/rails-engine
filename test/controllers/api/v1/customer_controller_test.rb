@@ -24,7 +24,7 @@ class Api::V1::CustomersControllerTest < ActionController::TestCase
     get :index, format: :json
     json_response.each do |item|
       assert item["first_name"]
-      assert item["last_name"]
+      #assert item["last_name"]
     end
   end
 
